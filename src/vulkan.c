@@ -39,6 +39,10 @@
 //////                       GLFW internal API                      //////
 //////////////////////////////////////////////////////////////////////////
 
+#if defined(_GLFW_COCOA)
+    GLFWAPI char const * _glfw_vulkan_library = NULL;
+#endif
+
 GLFWbool _glfwInitVulkan(int mode)
 {
     VkResult err;
@@ -54,7 +58,14 @@ GLFWbool _glfwInitVulkan(int mode)
 #elif defined(_GLFW_WIN32)
     _glfw.vk.handle = _glfw_dlopen("vulkan-1.dll");
 #elif defined(_GLFW_COCOA)
-    _glfw.vk.handle = _glfw_dlopen("libvulkan.1.dylib");
+    if (_glfw_vulkan_library)
+    {
+        _glfw.vk.handle = _glfw_dlopen(_glfw_vulkan_library);
+    }
+    if (!_glfw.vk.handle)
+    {
+        _glfw.vk.handle = _glfw_dlopen("libvulkan.1.dylib");
+    }
 #else
     _glfw.vk.handle = _glfw_dlopen("libvulkan.so.1");
 #endif
