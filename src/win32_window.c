@@ -191,12 +191,12 @@ static HICON createIcon(const GLFWimage* image,
 static void getFullWindowSize(DWORD style, DWORD exStyle,
                               int clientWidth, int clientHeight,
                               int* fullWidth, int* fullHeight,
-                              UINT dpi)
+                              _GLFWwindow* window)
 {
     RECT rect = { 0, 0, clientWidth, clientHeight };
 
     if (_glfwIsWindows10AnniversaryUpdateOrGreaterWin32())
-        AdjustWindowRectExForDpi(&rect, style, FALSE, exStyle, dpi);
+        AdjustWindowRectExForDpi(&rect, style, FALSE, exStyle, window != NULL ? GetDpiForWindow(window->win32.handle) : USER_DEFAULT_SCREEN_DPI);
     else
         AdjustWindowRectEx(&rect, style, FALSE, exStyle);
 
@@ -213,7 +213,7 @@ static void applyAspectRatio(_GLFWwindow* window, int edge, RECT* area)
 
     getFullWindowSize(getWindowStyle(window), getWindowExStyle(window),
                       0, 0, &xoff, &yoff,
-                      GetDpiForWindow(window->win32.handle));
+                      window);
 
     if (edge == WMSZ_LEFT  || edge == WMSZ_BOTTOMLEFT ||
         edge == WMSZ_RIGHT || edge == WMSZ_BOTTOMRIGHT)
@@ -1008,7 +1008,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg,
 
             getFullWindowSize(getWindowStyle(window), getWindowExStyle(window),
                               0, 0, &xoff, &yoff,
-                              GetDpiForWindow(window->win32.handle));
+                              window);
 
             if (window->minwidth != GLFW_DONT_CARE &&
                 window->minheight != GLFW_DONT_CARE)
@@ -1194,7 +1194,7 @@ static int createNativeWindow(_GLFWwindow* window,
         getFullWindowSize(style, exStyle,
                           wndconfig->width, wndconfig->height,
                           &fullWidth, &fullHeight,
-                          USER_DEFAULT_SCREEN_DPI);
+                          NULL);
     }
 
     wideTitle = _glfwCreateWideStringFromUTF8Win32(wndconfig->title);
