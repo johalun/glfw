@@ -4,7 +4,7 @@ set(common_HEADERS internal.h mappings.h
                    "${GLFW_SOURCE_DIR}/include/GLFW/glfw3.h"
                    "${GLFW_SOURCE_DIR}/include/GLFW/glfw3native.h")
 set(common_SOURCES context.c init.c input.c monitor.c vulkan.c window.c)
-if (UNIX)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	list(APPEND common_SOURCES wrap_memcpy.c)
 endif()
 
