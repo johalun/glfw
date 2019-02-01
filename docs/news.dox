@@ -173,6 +173,14 @@ access functions @ref glfwGetX11SelectionString and @ref
 glfwSetX11SelectionString.
 
 
+@subsection news_33_mir_removal Experimental Mir support has been removed
+
+As per the release of Mir 1.0, the recommended API is now Wayland, the
+experimental Mir display server backend introduced in GLFW 3.1 has thus been
+removed.  To use the experimental Wayland backend, pass -DGLFW_USE_WAYLAND=ON
+to cmake where you previously passed the now-removed -DGLFW_USE_MIR=ON.
+
+
 @section news_32 Release notes for 3.2
 
 
@@ -267,7 +275,7 @@ easy linking with the library and its dependencies.
 @section news_31 Release notes for 3.1
 
 These are the release highlights.  For a full list of changes see the
-[version history](http://www.glfw.org/changelog.html).
+[version history](https://www.glfw.org/changelog.html).
 
 
 @subsection news_31_cursor Custom mouse cursor images
@@ -378,7 +386,7 @@ on Linux with a CMake option.
 @section news_30 Release notes for 3.0
 
 These are the release highlights.  For a full list of changes see the
-[version history](http://www.glfw.org/changelog.html).
+[version history](https://www.glfw.org/changelog.html).
 
 
 @subsection news_30_cmake CMake build system
@@ -389,7 +397,7 @@ supported by GLFW, is present in most package systems and can generate
 makefiles and/or project files for most popular development environments.
 
 For more information on how to use CMake, see the
-[CMake manual](http://cmake.org/cmake/help/documentation.html).
+[CMake manual](https://cmake.org/cmake/help/documentation.html).
 
 
 @subsection news_30_multiwnd Multi-window support

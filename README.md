@@ -11,8 +11,8 @@ application development.  It provides a simple, platform-independent API for
 creating windows, contexts and surfaces, reading input, handling events, etc.
 
 GLFW natively supports Windows, macOS and Linux and other Unix-like systems.
-Experimental implementations for the Wayland protocol and the Mir display server
-are available but not yet officially supported.
+An experimental implementation for the Wayland protocol is available but not
+yet officially supported.
 
 GLFW is licensed under the [zlib/libpng
 license](http://www.glfw.org/license.html).
@@ -167,6 +167,8 @@ information on what to include when reporting a bug.
   (#749,#842)
 - Added `GLFW_FOCUS_ON_SHOW` window hint and attribute to control input focus
   on calling show window (#1189)
+- Added `GLFW_SCALE_TO_MONITOR` window hint for automatic window resizing
+  (#676,#1115)
 - Added `GLFW_JOYSTICK_HAT_BUTTONS` init hint (#889)
 - Added `GLFW_LOCK_KEY_MODS` input mode and `GLFW_MOD_*_LOCK` mod bits (#946)
 - Added macOS specific `GLFW_COCOA_RETINA_FRAMEBUFFER` window hint
@@ -195,6 +197,7 @@ information on what to include when reporting a bug.
 - Bugfix: Invalid library paths were used in test and example CMake files (#930)
 - Bugfix: The scancode for synthetic key release events was always zero
 - Bugfix: The generated Doxyfile did not handle paths with spaces (#1081)
+- [Win32] Added `glfwAttachWin32Window` for wrapping an existing `HWND` (#25)
 - [Win32] Added system error strings to relevant GLFW error descriptions (#733)
 - [Win32] Moved to `WM_INPUT` for disabled cursor mode motion input (#125)
 - [Win32] Removed XInput circular deadzone from joystick axis data (#1045)
@@ -237,6 +240,8 @@ information on what to include when reporting a bug.
 - [X11] Bugfix: Selection I/O reported but did not support `COMPOUND_TEXT`
 - [X11] Bugfix: Latin-1 text read from selections was not converted to UTF-8
 - [X11] Bugfix: NVidia EGL would segfault if unloaded before closing the display
+- [X11] Bugfix: Checking window maximized attrib could crash some WMs (#1356)
+- [X11] Bugfix: Update cursor position on enter event (#1366)
 - [Linux] Added workaround for missing `SYN_DROPPED` in pre-2.6.39 kernel
           headers (#1196)
 - [Linux] Moved to evdev for joystick input (#906,#1005)
@@ -269,6 +274,8 @@ information on what to include when reporting a bug.
 - [Cocoa] Bugfix: Window was resized twice when entering full screen (#1085)
 - [Cocoa] Bugfix: Duplicate size events were not filtered (#1085)
 - [Cocoa] Bugfix: Event polling did not initialize AppKit if necessary (#1218)
+- [Cocoa] Bugfix: OpenGL rendering was not initially visible on 10.14
+                  (#1334,#1346)
 - [WGL] Added support for `WGL_EXT_colorspace` for OpenGL ES contexts
 - [WGL] Added support for `WGL_ARB_create_context_no_error`
 - [GLX] Added support for `GLX_ARB_create_context_no_error`
