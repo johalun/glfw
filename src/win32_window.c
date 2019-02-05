@@ -191,12 +191,12 @@ static HICON createIcon(const GLFWimage* image,
 static void getFullWindowSize(DWORD style, DWORD exStyle,
                               int clientWidth, int clientHeight,
                               int* fullWidth, int* fullHeight,
-                              _GLFWwindow* window)
+                              UINT dpi)
 {
     RECT rect = { 0, 0, clientWidth, clientHeight };
 
     if (_glfwIsWindows10AnniversaryUpdateOrGreaterWin32())
-        AdjustWindowRectExForDpi(&rect, style, FALSE, exStyle, window != NULL ? GetDpiForWindow(window->win32.handle) : USER_DEFAULT_SCREEN_DPI);
+        AdjustWindowRectExForDpi(&rect, style, FALSE, exStyle, dpi);
     else
         AdjustWindowRectEx(&rect, style, FALSE, exStyle);
 
@@ -1208,7 +1208,7 @@ static int createNativeWindow(_GLFWwindow* window,
         getFullWindowSize(style, exStyle,
                           wndconfig->width, wndconfig->height,
                           &fullWidth, &fullHeight,
-                          NULL);
+                          USER_DEFAULT_SCREEN_DPI);
     }
 
     wideTitle = _glfwCreateWideStringFromUTF8Win32(wndconfig->title);
